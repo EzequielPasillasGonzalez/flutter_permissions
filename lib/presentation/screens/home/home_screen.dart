@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,7 +10,12 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Miscelaneos'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.settings_sharp)),
+          IconButton(
+            onPressed: () {
+              context.go('/permissions');
+            },
+            icon: Icon(Icons.settings_sharp),
+          ),
         ],
       ),
     );
