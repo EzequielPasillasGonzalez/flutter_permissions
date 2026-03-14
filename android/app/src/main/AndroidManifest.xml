@@ -11,7 +11,7 @@
 
 
     <!-- Permissions options for the `camera` group -->
-    <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
 
     <!-- Permissions options for the `location` group -->

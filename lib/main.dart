@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reforzamiento/config/config.dart';
-import 'package:reforzamiento/presentation/blocs/appp_status_bloc/app_status_bloc.dart';
+import 'package:reforzamiento/presentation/blocs/blocs.dart';
 
 void main() {
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => AppStatusBloc())],
+      providers: [
+        BlocProvider(create: (_) => AppStatusBloc()),
+        BlocProvider(create: (_) => PermissionsBloc()),
+      ],
       child: const MainApp(),
     ),
   );

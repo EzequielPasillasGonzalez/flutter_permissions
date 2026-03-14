@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reforzamiento/presentation/blocs/permissions_bloc/permissions_bloc.dart';
 
 class PermissionsScreen extends StatelessWidget {
   const PermissionsScreen({super.key});
@@ -17,13 +19,18 @@ class _PermissionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final permissions = context.watch<PermissionsBloc>().state;
+    final permissionsBloc = context.read<PermissionsBloc>();
+
     return ListView(
       children: [
         CheckboxListTile(
-          value: true,
-          onChanged: (value) {},
+          value: permissions.cameraGranted,
+          onChanged: (_) {
+            permissionsBloc.requestCameraAccess();
+          },
           title: const Text('Cámara'),
-          subtitle: const Text('Estado actual'),
+          subtitle: Text('Estado actual: ${permissions.camera}'),
         ),
       ],
     );
