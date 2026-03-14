@@ -4,6 +4,9 @@ import 'package:reforzamiento/presentation/screens/screens.dart';
 final router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-    GoRoute(path: '/', builder: (context, state) => const PermissionsScreen()),
+    GoRoute(
+      path: '/permissions',
+      builder: (context, state) => const PermissionsScreen(),
+    ),
   ],
 );
