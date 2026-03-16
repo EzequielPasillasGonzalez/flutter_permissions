@@ -32,6 +32,51 @@ class _PermissionsView extends StatelessWidget {
           title: const Text('Cámara'),
           subtitle: Text('Estado actual: ${permissions.camera}'),
         ),
+
+        CheckboxListTile(
+          value: permissions.photoLibraryGranted,
+          onChanged: (_) {
+            permissionsBloc.requestPhotoLibraryAccess();
+          },
+          title: const Text('Galeria'),
+          subtitle: Text('Estado actual: ${permissions.photoLibrary}'),
+        ),
+
+        CheckboxListTile(
+          value: permissions.sensorsGranted,
+          onChanged: (_) {
+            permissionsBloc.requestSensorsAccess();
+          },
+          title: const Text('Sensores'),
+          subtitle: Text('Estado actual: ${permissions.sensors}'),
+        ),
+
+        CheckboxListTile(
+          value: permissions.locationGranted,
+          onChanged: (_) {
+            permissionsBloc.requestLocationAccess();
+          },
+          title: const Text('Ubicación'),
+          subtitle: Text('Estado actual: ${permissions.location}'),
+        ),
+
+        CheckboxListTile(
+          value: permissions.locationAlwaysGranted,
+          onChanged: (_) {
+            permissionsBloc.requestLocationAlwaysAccess();
+          },
+          title: const Text('Location Always'),
+          subtitle: Text('Estado actual: ${permissions.locationAlways}'),
+        ),
+
+        CheckboxListTile(
+          value: permissions.locationWhenInUseGranted,
+          onChanged: (_) {
+            permissionsBloc.requestLocationWhenInUseAccess();
+          },
+          title: const Text('Location cuando se usa'),
+          subtitle: Text('Estado actual: ${permissions.locationWhenInUse}'),
+        ),
       ],
     );
   }

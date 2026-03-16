@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,6 +31,13 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
       add(const RequestLocationWhenInUsePermission());
 
   // --- Lógica Interna de los Eventos ---
+
+  Future<void> openSettingsScreen() async {
+    await openAppSettings();
+  }
+
+  void _checkPermissionState(PermissionStatus status) async {}
+
   Future<void> _onCheckAllPermissions(
     CheckAllPermissions event,
     Emitter<PermissionsState> emit,
@@ -58,7 +67,11 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
     RequestCameraPermission event,
     Emitter<PermissionsState> emit,
   ) async {
+    // Si ya estaba denegado permanentemente, lo mandar a los ajustes
     final status = await Permission.camera.request();
+
+    _checkPermissionState(status);
+
     emit(state.copyWith(camera: status));
   }
 
@@ -66,7 +79,27 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
     RequestPhotoLibraryPermission event,
     Emitter<PermissionsState> emit,
   ) async {
-    final status = await Permission.photos.request();
+    PermissionStatus status;
+
+    if (Platform.isAndroid) {
+      final statuses = await [Permission.storage, Permission.photos].request();
+
+      if (statuses[Permission.storage] == PermissionStatus.granted ||
+          statuses[Permission.photos] == PermissionStatus.granted) {
+        status = PermissionStatus.granted;
+      } else if (statuses[Permission.storage] ==
+              PermissionStatus.permanentlyDenied ||
+          statuses[Permission.photos] == PermissionStatus.permanentlyDenied) {
+        status = PermissionStatus.permanentlyDenied;
+      } else {
+        status = PermissionStatus.denied;
+      }
+    } else {
+      status = await Permission.photos.request();
+    }
+    _checkPermissionState(status);
+
+    // Emitimos el estado final
     emit(state.copyWith(photoLibrary: status));
   }
 
@@ -74,7 +107,11 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
     RequestSensorsPermission event,
     Emitter<PermissionsState> emit,
   ) async {
+    // Si ya estaba denegado permanentemente, lo mandar a los ajustes
     final status = await Permission.sensors.request();
+
+    _checkPermissionState(status);
+
     emit(state.copyWith(sensors: status));
   }
 
@@ -82,7 +119,11 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
     RequestLocationPermission event,
     Emitter<PermissionsState> emit,
   ) async {
+    // Si ya estaba denegado permanentemente, lo mandar a los ajustes
     final status = await Permission.location.request();
+
+    _checkPermissionState(status);
+
     emit(state.copyWith(location: status));
   }
 
@@ -90,7 +131,11 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
     RequestLocationAlwaysPermission event,
     Emitter<PermissionsState> emit,
   ) async {
+    // Si ya estaba denegado permanentemente, lo mandar a los ajustes
     final status = await Permission.locationAlways.request();
+
+    _checkPermissionState(status);
+
     emit(state.copyWith(locationAlways: status));
   }
 
@@ -98,7 +143,11 @@ class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
     RequestLocationWhenInUsePermission event,
     Emitter<PermissionsState> emit,
   ) async {
+    // Si ya estaba denegado permanentemente, lo mandar a los ajustes
     final status = await Permission.locationWhenInUse.request();
+
+    _checkPermissionState(status);
+
     emit(state.copyWith(locationWhenInUse: status));
   }
 }

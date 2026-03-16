@@ -50,23 +50,19 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     detached: El motor de Flutter se desvinculó de la vista nativa. Suele ocurrir justo antes de que la aplicación sea destruida o cerrada por completo.
     */
 
-    final AppStatusBloc appStatusBloc = context.read<AppStatusBloc>();
+    final PermissionsBloc permissionsBloc = context.read<PermissionsBloc>();
 
     switch (state) {
       case AppLifecycleState.resumed:
-        appStatusBloc.onAppResumed();
+        permissionsBloc.checkPermissions();
         break;
       case AppLifecycleState.inactive:
-        appStatusBloc.onAppInactive();
         break;
       case AppLifecycleState.paused:
-        appStatusBloc.onAppPaused();
         break;
       case AppLifecycleState.detached:
-        appStatusBloc.onAppDetached();
         break;
       case AppLifecycleState.hidden:
-        appStatusBloc.onAppHiden();
         break;
     }
     super.didChangeAppLifecycleState(state);
