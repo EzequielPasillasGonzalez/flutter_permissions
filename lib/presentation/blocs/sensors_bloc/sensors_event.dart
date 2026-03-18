@@ -36,3 +36,14 @@ class _OnAccelerometerEvent extends SensorsEvent {
   @override
   List<Object?> get props => [event];
 }
+
+class OnUseMagnetometer extends SensorsEvent {
+  const OnUseMagnetometer();
+}
+
+class _OnMagnetometerEvent extends SensorsEvent {
+  final MagnetometerEvent event;
+  const _OnMagnetometerEvent(this.event);
+  @override
+  List<Object?> get props => [event];
+}

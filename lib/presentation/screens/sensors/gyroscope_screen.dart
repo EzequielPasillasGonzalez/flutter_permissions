@@ -14,9 +14,9 @@ class _GyroscopeScreenState extends State<GyroscopeScreen> {
   late final SensorsBloc sensorsBloc;
   @override
   void initState() {
+    super.initState();
     sensorsBloc = context.read<SensorsBloc>();
     sensorsBloc.gyroscopeStart();
-    super.initState();
   }
 
   @override

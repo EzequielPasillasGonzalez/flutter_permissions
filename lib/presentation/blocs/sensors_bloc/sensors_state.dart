@@ -54,3 +54,27 @@ final class SensorsAccelerometer extends SensorsState {
     ''';
   }
 }
+
+final class SensorsMagnetometer extends SensorsState {
+  final double x;
+  final double y;
+  final double z;
+
+  const SensorsMagnetometer({
+    required this.x,
+    required this.y,
+    required this.z,
+  });
+
+  @override
+  List<Object?> get props => [x, y, z];
+
+  @override
+  String toString() {
+    return '''
+    X: ${x.toStringAsFixed(2)}\n
+    Y: ${y.toStringAsFixed(2)}\n
+    Z: ${z.toStringAsFixed(2)}
+    ''';
+  }
+}

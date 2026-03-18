@@ -11,17 +11,24 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
   // Guardar el estado del sensor gyroscope para poder desconectarlo cuando se requiera
   StreamSubscription<GyroscopeEvent>? _gyroscopeSubscription;
   StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
+  StreamSubscription<MagnetometerEvent>? _magnetometerSubscription;
 
   SensorsBloc() : super(const SensorsInitial()) {
     on<OnUseGyroscope>(_onSensorGyroscope);
     on<_OnGyroscopeEvent>(_onGyroscopeDataReceived);
+
     on<OnUseAccelerometer>(_onSensorAccelerometer);
     on<_OnAccelerometerEvent>(_onAccelerometerDataReceived);
+
+    on<OnUseMagnetometer>(_onSensorMagnetometer);
+    on<_OnMagnetometerEvent>(_onMagnetometerDataReceived);
+
     on<OnSensorsStop>(_onSensorsStop);
   }
 
   void gyroscopeStart() => add(OnUseGyroscope());
   void accelerometerStart() => add(OnUseAccelerometer());
+  void magnetometerStart() => add(OnUseMagnetometer());
   void sensorsStop() => add(const OnSensorsStop());
 
   void _onSensorGyroscope(OnUseGyroscope event, Emitter<SensorsState> emit) {
@@ -71,9 +78,34 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
     );
   }
 
+  void _onSensorMagnetometer(
+    OnUseMagnetometer event,
+    Emitter<SensorsState> emit,
+  ) {
+    //  cancelar cualquier escucha previa
+    _magnetometerSubscription?.cancel();
+
+    // Conectar al sensor, y por cada dato, lanzar un evento interno
+    _magnetometerSubscription = magnetometerEventStream().listen((
+      magnetometerEvent,
+    ) {
+      add(_OnMagnetometerEvent(magnetometerEvent));
+    });
+  }
+
+  void _onMagnetometerDataReceived(
+    _OnMagnetometerEvent event,
+    Emitter<SensorsState> emit,
+  ) {
+    emit(
+      SensorsMagnetometer(x: event.event.x, y: event.event.y, z: event.event.z),
+    );
+  }
+
   void _onSensorsStop(OnSensorsStop event, Emitter<SensorsState> emit) {
     _gyroscopeSubscription?.cancel();
     _accelerometerSubscription?.cancel();
+    _magnetometerSubscription?.cancel();
     emit(const SensorsInitial());
   }
 
@@ -82,6 +114,7 @@ class SensorsBloc extends Bloc<SensorsEvent, SensorsState> {
   Future<void> close() {
     _gyroscopeSubscription?.cancel();
     _accelerometerSubscription?.cancel();
+    _magnetometerSubscription?.cancel();
     return super.close();
   }
 }
