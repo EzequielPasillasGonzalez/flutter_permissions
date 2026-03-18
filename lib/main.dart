@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reforzamiento/config/config.dart';
 import 'package:reforzamiento/presentation/blocs/blocs.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Setear una horientazion
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(
     MultiBlocProvider(
       providers: [
