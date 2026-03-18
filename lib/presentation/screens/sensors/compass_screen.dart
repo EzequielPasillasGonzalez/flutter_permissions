@@ -70,10 +70,39 @@ class _CompassScreenState extends State<CompassScreen> {
   }
 }
 
-class _CompassView extends StatelessWidget {
+class _CompassView extends StatefulWidget {
   final SensorsCompass state;
 
   const _CompassView({required this.state});
+
+  @override
+  State<_CompassView> createState() => _CompassViewState();
+}
+
+class _CompassViewState extends State<_CompassView> {
+  double prevValue = 0.0;
+
+  double turns = 0;
+
+  double getTurns() {
+    double? direction = widget.state.heading;
+    direction = (direction < 0) ? (360 + direction) : direction;
+
+    double diff = direction - prevValue;
+    if (diff.abs() > 180) {
+      if (prevValue > direction) {
+        diff = 360 - (direction - prevValue).abs();
+      } else {
+        diff = 360 - (prevValue - direction).abs();
+        diff = diff * -1;
+      }
+    }
+
+    turns += (diff / 360);
+    prevValue = direction;
+
+    return turns * -1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +111,16 @@ class _CompassView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: 20,
       children: <Widget>[
-        Text(
-          state.toString(),
-          style: TextStyle(color: Colors.white, fontSize: 30),
-        ),
         Stack(
           alignment: AlignmentGeometry.center,
           children: <Widget>[
-            Image.asset('assets/images/compass/quadrant-1.png'),
+            Image.asset('assets/images/compass/needle-1.png'),
 
-            Transform.rotate(
-              angle: (state.heading * (pi / 180) * -1),
-              child: Image.asset('assets/images/compass/needle-1.png'),
+            AnimatedRotation(
+              turns: getTurns(),
+              duration: const Duration(seconds: 1),
+              curve: Curves.easeOut,
+              child: Image.asset('assets/images/compass/quadrant-1.png'),
             ),
           ],
         ),
