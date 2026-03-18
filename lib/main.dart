@@ -7,7 +7,7 @@ import 'package:reforzamiento/presentation/blocs/blocs.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Setear una horientazion
+  // Setear una horientacion
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(
