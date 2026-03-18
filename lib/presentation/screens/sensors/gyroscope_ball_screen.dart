@@ -40,15 +40,17 @@ class _GyroscopeBallScreenState extends State<GyroscopeBallScreen> {
           },
         ),
       ),
-      body: SizedBox.expand(
-        child: BlocBuilder<SensorsBloc, SensorsState>(
-          builder: (context, state) {
-            if (state is SensorsGyroscope) {
-              return MovingBall(x: state.x, y: state.y);
-            }
-            return const CircularProgressIndicator(); // Mientras arranca el sensor
-          },
-        ),
+      body: BlocBuilder<SensorsBloc, SensorsState>(
+        builder: (context, state) {
+          if (state is SensorsGyroscope) {
+            return SizedBox.expand(
+              child: MovingBall(x: state.x, y: state.y),
+            );
+          }
+          return Center(
+            child: const CircularProgressIndicator(),
+          ); // Mientras arranca el sensor
+        },
       ),
     );
   }
