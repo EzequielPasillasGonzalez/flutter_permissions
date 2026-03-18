@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/presentation/blocs/blocs.dart';
 
 class GyroscopeScreen extends StatefulWidget {
@@ -27,7 +28,17 @@ class _GyroscopeScreenState extends State<GyroscopeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Giroscópio')),
+      appBar: AppBar(
+        title: const Text('Giroscópio'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            }
+          },
+        ),
+      ),
       body: Center(
         child: BlocBuilder<SensorsBloc, SensorsState>(
           builder: (context, state) {
