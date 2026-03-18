@@ -47,3 +47,14 @@ class _OnMagnetometerEvent extends SensorsEvent {
   @override
   List<Object?> get props => [event];
 }
+
+class OnUseCompass extends SensorsEvent {
+  const OnUseCompass();
+}
+
+class _OnCompassEvent extends SensorsEvent {
+  final CompassEvent event;
+  const _OnCompassEvent(this.event);
+  @override
+  List<Object?> get props => [event];
+}

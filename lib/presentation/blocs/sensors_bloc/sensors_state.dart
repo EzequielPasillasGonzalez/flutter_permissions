@@ -78,3 +78,17 @@ final class SensorsMagnetometer extends SensorsState {
     ''';
   }
 }
+
+final class SensorsCompass extends SensorsState {
+  final double heading;
+
+  const SensorsCompass({required this.heading});
+
+  @override
+  List<Object?> get props => [heading];
+
+  @override
+  String toString() {
+    return 'heading: ${heading.toStringAsFixed(2)}';
+  }
+}
