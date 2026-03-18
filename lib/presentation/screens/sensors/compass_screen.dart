@@ -34,7 +34,30 @@ class CompassScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Center(child: const Text('text')),
+      body: const Center(child: _CompassView()),
+    );
+  }
+}
+
+class _CompassView extends StatelessWidget {
+  const _CompassView();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: 20,
+      children: <Widget>[
+        const Text('155°', style: TextStyle(color: Colors.white, fontSize: 30)),
+        Stack(
+          alignment: AlignmentGeometry.center,
+          children: <Widget>[
+            Image.asset('assets/images/compass/quadrant-1.png'),
+            Image.asset('assets/images/compass/needle-1.png'),
+          ],
+        ),
+      ],
     );
   }
 }
