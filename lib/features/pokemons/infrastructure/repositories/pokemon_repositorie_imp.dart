@@ -11,7 +11,7 @@ class PokemonRepositorieImp extends PokemonsRepositories {
   }
 
   @override
-  Future<List<Pokemons>> getPokemonsByPage({int limit = 10, offset = 0}) {
+  Future<List<SimplePokemon>> getPokemonsByPage({int limit = 10, offset = 0}) {
     return datasource.getPokemonsByPage(limit: limit, offset: offset);
   }
 }

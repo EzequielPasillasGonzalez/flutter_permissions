@@ -8,7 +8,7 @@ class PokemonsDatasourceImpl extends PokemonsDatasource {
   }
 
   @override
-  Future<List<Pokemons>> getPokemonsByPage({int limit = 10, offset = 0}) {
+  Future<List<SimplePokemon>> getPokemonsByPage({int limit = 10, offset = 0}) {
     // TODO: implement getPokemonsByPage
     throw UnimplementedError();
   }
