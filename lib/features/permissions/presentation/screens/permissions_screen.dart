@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reforzamiento/presentation/blocs/permissions_bloc/permissions_bloc.dart';
+import 'package:reforzamiento/features/permissions/presentation/blocs/permissions_bloc/permissions_bloc.dart';
 
 class PermissionsScreen extends StatelessWidget {
   const PermissionsScreen({super.key});

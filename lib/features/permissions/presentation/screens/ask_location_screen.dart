@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reforzamiento/presentation/blocs/blocs.dart';
+import 'package:reforzamiento/features/permissions/permissions.dart';
 
 class AskLocationScreen extends StatelessWidget {
   const AskLocationScreen({super.key});

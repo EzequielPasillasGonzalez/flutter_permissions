@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reforzamiento/presentation/blocs/blocs.dart';
+import 'package:reforzamiento/features/sensors/sensors.dart';
 
 class GyroscopeBallScreen extends StatefulWidget {
   const GyroscopeBallScreen({super.key});

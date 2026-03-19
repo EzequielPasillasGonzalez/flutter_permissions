@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reforzamiento/presentation/blocs/blocs.dart';
+import 'package:reforzamiento/features/sensors/sensors.dart';
 
-class MagnetometerScreen extends StatefulWidget {
-  const MagnetometerScreen({super.key});
+class GyroscopeScreen extends StatefulWidget {
+  const GyroscopeScreen({super.key});
 
   @override
-  State<MagnetometerScreen> createState() => _MagnetometerScreenState();
+  State<GyroscopeScreen> createState() => _GyroscopeScreenState();
 }
 
-class _MagnetometerScreenState extends State<MagnetometerScreen> {
+class _GyroscopeScreenState extends State<GyroscopeScreen> {
   late final SensorsBloc sensorsBloc;
-
   @override
   void initState() {
     super.initState();
     sensorsBloc = context.read<SensorsBloc>();
-    sensorsBloc.magnetometerStart();
+    sensorsBloc.gyroscopeStart();
   }
 
   @override
@@ -30,7 +29,7 @@ class _MagnetometerScreenState extends State<MagnetometerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MagnetometerScreen'),
+        title: const Text('Giroscópio'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -43,7 +42,7 @@ class _MagnetometerScreenState extends State<MagnetometerScreen> {
       body: Center(
         child: BlocBuilder<SensorsBloc, SensorsState>(
           builder: (context, state) {
-            if (state is SensorsMagnetometer) {
+            if (state is SensorsGyroscope) {
               return Text(
                 state.toString(),
                 style: const TextStyle(fontSize: 30),

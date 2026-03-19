@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reforzamiento/presentation/blocs/blocs.dart';
-import 'package:reforzamiento/presentation/blocs/permissions_bloc/permissions_bloc.dart';
-import 'package:reforzamiento/presentation/screens/permissions/ask_location_screen.dart';
+
+import 'package:reforzamiento/features/permissions/presentation/blocs/permissions_bloc/permissions_bloc.dart';
+import 'package:reforzamiento/features/permissions/presentation/screens/ask_location_screen.dart';
+import 'package:reforzamiento/features/sensors/sensors.dart';
 
 class CompassScreen extends StatefulWidget {
   const CompassScreen({super.key});

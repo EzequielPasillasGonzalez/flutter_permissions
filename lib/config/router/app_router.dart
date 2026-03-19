@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reforzamiento/presentation/blocs/blocs.dart';
-import 'package:reforzamiento/presentation/screens/screens.dart';
+import 'package:reforzamiento/features/home/home.dart';
+import 'package:reforzamiento/features/permissions/permissions.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
+import 'package:reforzamiento/features/sensors/sensors.dart';
 
 final router = GoRouter(
   routes: [
