@@ -11,6 +11,17 @@ final router = GoRouter(
       builder: (context, state) => const PermissionsScreen(),
     ),
 
+    GoRoute(
+      path: '/permissions',
+      builder: (context, state) => const PermissionsScreen(),
+    ),
+
+    GoRoute(
+      path: '/pokemons',
+      builder: (context, state) => const PokemonsScreen(),
+      // TODO:  routes: [GoRoute(path: ':id', builder: (context, state) {})],
+    ),
+
     ShellRoute(
       builder: (context, state, child) =>
           BlocProvider(create: (_) => SensorsBloc(), child: child),
