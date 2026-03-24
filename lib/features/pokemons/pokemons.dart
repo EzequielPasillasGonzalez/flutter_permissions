@@ -1,3 +1,21 @@
+export 'domain/datasources/datasources.dart';
+export 'domain/datasources/pokemons_datasource.dart';
 export 'domain/domain.dart';
-export 'presentation/presentation.dart';
-
+export 'domain/entities/entities.dart';
+export 'domain/entities/pokemon.dart';
+export 'domain/entities/simple_pokemon.dart';
+export 'domain/repositories/pokemons_repositories.dart';
+export 'domain/repositories/repositories.dart';
+export 'infrastructure/datasources/datasources.dart';
+export 'infrastructure/datasources/pokemons_datasource_impl.dart';
+export 'infrastructure/infrastructure.dart';
+export 'infrastructure/mappers/mappers.dart';
+export 'infrastructure/mappers/pokemon_mapper.dart';
+export 'infrastructure/mappers/simple_pokemon_mapper.dart';
+export 'infrastructure/models/models.dart';
+export 'infrastructure/models/pokeapi_pokemon_response.dart';
+export 'infrastructure/repositories/pokemon_repositorie_imp.dart';
+export 'infrastructure/repositories/repositories.dart';
+export 'presentation/blocs/pokemons_bloc/pokemons_bloc.dart';
+export 'presentation/screens/pokemon_screen.dart';
+export 'presentation/screens/pokemons_screen.dart';

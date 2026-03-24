@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:reforzamiento/features/widgets/full_screen_loader.dart';
 
@@ -48,19 +49,34 @@ class _PokemonViewState extends State<_PokemonView> {
     final isInitialLoad =
         pokemonState.isLoading && pokemonState.simplePokemons.isEmpty;
 
-    return isInitialLoad
-        ? Scaffold(body: FullScreenLoader())
-        : CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              SliverAppBar(
-                title: const Text('Pokemons'),
-                floating: true,
-                backgroundColor: Colors.white.withValues(alpha: 0.8),
-              ),
-              _PokemonGrid(pokemons: pokemonState.simplePokemons),
-            ],
-          );
+    return Scaffold(
+      body: isInitialLoad
+          ? const FullScreenLoader()
+          : CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                SliverAppBar(
+                  title: const Text(
+                    'Pokemons',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  floating: true,
+                  backgroundColor: Colors.white.withValues(alpha: 0.8),
+                  leading: IconButton(
+                    onPressed: () {
+                      if (context.canPop()) context.pop();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 30,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                _PokemonGrid(pokemons: pokemonState.simplePokemons),
+              ],
+            ),
+    );
   }
 }
 
@@ -81,7 +97,7 @@ class _PokemonGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final pokemon = pokemons[index];
         return GestureDetector(
-          //TODO:  onTap: ,
+          onTap: () => context.push('/pokemons/$index'),
           child: FadeInImage.assetNetwork(
             placeholder: 'assets/loaders/gorila-loader.gif',
             image: pokemon.imageUrl,

@@ -44,6 +44,67 @@ class PokeapiPokemonResponse {
     required this.types,
     required this.weight,
   });
+
+  factory PokeapiPokemonResponse.fromJson(Map<String, dynamic> json) =>
+      PokeapiPokemonResponse(
+        abilities: List<Ability>.from(
+          json["abilities"].map((x) => Ability.fromJson(x)),
+        ),
+        baseExperience: json["base_experience"],
+        cries: Cries.fromJson(json["cries"]),
+        forms: List<Species>.from(
+          json["forms"].map((x) => Species.fromJson(x)),
+        ),
+        gameIndices: List<GameIndex>.from(
+          json["game_indices"].map((x) => GameIndex.fromJson(x)),
+        ),
+        height: json["height"],
+        heldItems: List<HeldItem>.from(
+          json["held_items"].map((x) => HeldItem.fromJson(x)),
+        ),
+        id: json["id"],
+        isDefault: json["is_default"],
+        locationAreaEncounters: json["location_area_encounters"],
+        moves: List<Move>.from(json["moves"].map((x) => Move.fromJson(x))),
+        name: json["name"],
+        order: json["order"],
+        pastAbilities: List<PastAbility>.from(
+          json["past_abilities"].map((x) => PastAbility.fromJson(x)),
+        ),
+        pastStats: List<PastStat>.from(
+          json["past_stats"].map((x) => PastStat.fromJson(x)),
+        ),
+        pastTypes: List<dynamic>.from(json["past_types"].map((x) => x)),
+        species: Species.fromJson(json["species"]),
+        sprites: Sprites.fromJson(json["sprites"]),
+        stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
+        types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
+        weight: json["weight"],
+      );
+
+  Map<String, dynamic> toJson() => {
+    "abilities": List<dynamic>.from(abilities.map((x) => x.toJson())),
+    "base_experience": baseExperience,
+    "cries": cries.toJson(),
+    "forms": List<dynamic>.from(forms.map((x) => x.toJson())),
+    "game_indices": List<dynamic>.from(gameIndices.map((x) => x.toJson())),
+    "height": height,
+    "held_items": List<dynamic>.from(heldItems.map((x) => x.toJson())),
+    "id": id,
+    "is_default": isDefault,
+    "location_area_encounters": locationAreaEncounters,
+    "moves": List<dynamic>.from(moves.map((x) => x.toJson())),
+    "name": name,
+    "order": order,
+    "past_abilities": List<dynamic>.from(pastAbilities.map((x) => x.toJson())),
+    "past_stats": List<dynamic>.from(pastStats.map((x) => x.toJson())),
+    "past_types": List<dynamic>.from(pastTypes.map((x) => x)),
+    "species": species.toJson(),
+    "sprites": sprites.toJson(),
+    "stats": List<dynamic>.from(stats.map((x) => x.toJson())),
+    "types": List<dynamic>.from(types.map((x) => x.toJson())),
+    "weight": weight,
+  };
 }
 
 class Ability {

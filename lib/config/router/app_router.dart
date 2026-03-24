@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/features/home/home.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
+
 import 'package:reforzamiento/features/sensors/sensors.dart';
 
 final router = GoRouter(
@@ -18,13 +19,24 @@ final router = GoRouter(
       builder: (context, state) => const PermissionsScreen(),
     ),
 
-    GoRoute(
-      path: '/pokemons',
-      builder: (context, state) => BlocProvider(
-        create: (_) => PokemonsBloc(),
-        child: const PokemonsScreen(),
-      ),
-      // TODO:  routes: [GoRoute(path: ':id', builder: (context, state) {})],
+    ShellRoute(
+      builder: (context, state, child) =>
+          BlocProvider(create: (_) => PokemonsBloc(), child: child),
+      routes: [
+        GoRoute(
+          path: '/pokemons',
+          builder: (context, state) => PokemonsScreen(),
+          routes: [
+            GoRoute(
+              path: ':id',
+              builder: (context, state) {
+                final id = state.pathParameters['id'] ?? 1;
+                return PokemonScreen(pokemonId: int.parse(id.toString()));
+              },
+            ),
+          ],
+        ),
+      ],
     ),
 
     ShellRoute(

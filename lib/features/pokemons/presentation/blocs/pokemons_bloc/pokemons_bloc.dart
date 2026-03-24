@@ -13,9 +13,11 @@ class PokemonsBloc extends Bloc<PokemonsEvent, PokemonsState> {
 
   PokemonsBloc() : super(PokemonsState()) {
     on<PokemonsLoadNextPage>(_onLoadNextPage);
+    on<GetPokemonById>(_onGetPokemonById);
   }
 
   void loadNextPage() => add(PokemonsLoadNextPage());
+  void getPokemonById(int id) => add(GetPokemonById(id: id));
 
   void _onLoadNextPage(
     PokemonsLoadNextPage event,
@@ -46,12 +48,21 @@ class PokemonsBloc extends Bloc<PokemonsEvent, PokemonsState> {
       );
     } catch (e) {
       emit(state.copyWith(errorMessage: 'Error al cargar más productos $e'));
-    } finally {
-      emit(_limpiarLoading());
     }
   }
 
-  PokemonsState _limpiarLoading() {
-    return state.copyWith(isLoading: false);
+  void _onGetPokemonById(
+    GetPokemonById event,
+    Emitter<PokemonsState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true, errorMessage: ''));
+
+    try {
+      final pokemon = await pokemonRepositorieImp.getPokemonById(event.id);
+
+      emit(state.copyWith(selectedPokemon: pokemon, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(errorMessage: 'Error al cargar más productos $e'));
+    }
   }
 }

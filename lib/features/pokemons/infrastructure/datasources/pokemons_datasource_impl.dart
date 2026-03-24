@@ -13,9 +13,30 @@ class PokemonsDatasourceImpl extends PokemonsDatasource {
     : dio = Dio(BaseOptions(baseUrl: Enviroment.pokeApi));
 
   @override
-  Future<Pokemon> getPokemonById(int id) {
-    // TODO: implement getPokemonById
-    throw UnimplementedError();
+  Future<Pokemon> getPokemonById(int id) async {
+    try {
+      final response = await dio.get('/pokemon/$id');
+
+      final pokeApiResponse = PokeapiPokemonResponse.fromJson(response.data);
+
+      return PokemonMapper.pokeapiPokemonResponseToEntity(pokeApiResponse);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw CustomError(
+          message: e.response?.data['message'] ?? 'Expiro la sesión',
+        );
+      }
+      if (e.type == DioExceptionType.receiveTimeout) throw ConnectionTimeout();
+      throw CustomError(
+        message: 'Error al obtener pokemons: ${e.message}',
+        // errorCode: 1
+      );
+    } catch (e) {
+      throw CustomError(
+        message: 'Un error inesperado',
+        // errorCode: 1
+      );
+    }
   }
 
   @override
@@ -44,7 +65,7 @@ class PokemonsDatasourceImpl extends PokemonsDatasource {
       }
       if (e.type == DioExceptionType.receiveTimeout) throw ConnectionTimeout();
       throw CustomError(
-        message: 'Error al obtener productos: ${e.message}',
+        message: 'Error al obtener pokemons: ${e.message}',
         // errorCode: 1
       );
     } catch (e) {
