@@ -26,7 +26,7 @@ class PokemonsDatasourceImpl extends PokemonsDatasource {
     try {
       final response = await dio.get(
         '/pokemon',
-        queryParameters: {'limit': 30, 'offset': offset},
+        queryParameters: {'limit': limit, 'offset': offset},
       );
 
       final List<SimplePokemon> pokemons = [];

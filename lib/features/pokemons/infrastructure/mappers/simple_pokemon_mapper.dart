@@ -1,3 +1,4 @@
+import 'package:reforzamiento/config/const/enviroment.dart';
 import 'package:reforzamiento/features/pokemons/domain/domain.dart';
 
 class SimplePokemonMapper {
@@ -9,8 +10,7 @@ class SimplePokemonMapper {
     return SimplePokemon(
       id: id,
       name: json["name"],
-      imageUrl:
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png',
+      imageUrl: '${Enviroment.imagePokeMonBaseUrl}/$id.png',
     );
   }
 }

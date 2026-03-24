@@ -13,7 +13,7 @@ class PokemonsScreen extends StatelessWidget {
 }
 
 class _PokemonView extends StatefulWidget {
-  const _PokemonView({super.key});
+  const _PokemonView();
 
   @override
   State<_PokemonView> createState() => _PokemonViewState();
@@ -37,7 +37,7 @@ class _PokemonViewState extends State<_PokemonView> {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonState = context.read<PokemonsBloc>().state;
+    final pokemonState = context.watch<PokemonsBloc>().state;
 
     return pokemonState.isLoading
         ? Scaffold(body: FullScreenLoader())
