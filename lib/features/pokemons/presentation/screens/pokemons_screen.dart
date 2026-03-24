@@ -26,7 +26,12 @@ class _PokemonViewState extends State<_PokemonView> {
   void initState() {
     super.initState();
     context.read<PokemonsBloc>().loadNextPage();
-    scrollController.addListener(() {});
+    scrollController.addListener(() {
+      if ((scrollController.position.pixels + 400) >=
+          scrollController.position.maxScrollExtent) {
+        context.read<PokemonsBloc>().loadNextPage();
+      }
+    });
   }
 
   @override
@@ -39,19 +44,17 @@ class _PokemonViewState extends State<_PokemonView> {
   Widget build(BuildContext context) {
     final pokemonState = context.watch<PokemonsBloc>().state;
 
-    return pokemonState.isLoading
-        ? Scaffold(body: FullScreenLoader())
-        : CustomScrollView(
-            // controller: scrollController,
-            slivers: [
-              SliverAppBar(
-                title: const Text('Pokemons'),
-                floating: true,
-                backgroundColor: Colors.white.withValues(alpha: 0.8),
-              ),
-              _PokemonGrid(pokemons: pokemonState.simplePokemons),
-            ],
-          );
+    return CustomScrollView(
+      controller: scrollController,
+      slivers: [
+        SliverAppBar(
+          title: const Text('Pokemons'),
+          floating: true,
+          backgroundColor: Colors.white.withValues(alpha: 0.8),
+        ),
+        _PokemonGrid(pokemons: pokemonState.simplePokemons),
+      ],
+    );
   }
 }
 
@@ -73,7 +76,10 @@ class _PokemonGrid extends StatelessWidget {
         final pokemon = pokemons[index];
         return GestureDetector(
           //TODO:  onTap: ,
-          child: Image.network(pokemon.imageUrl, fit: BoxFit.contain),
+          child: FadeInImage.assetNetwork(
+            placeholder: 'assets/loaders/bottle-loader.gif',
+            image: pokemon.imageUrl,
+          ),
         );
       },
     );
