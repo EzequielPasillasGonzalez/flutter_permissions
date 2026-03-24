@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
+import 'package:reforzamiento/features/widgets/full_screen_loader.dart';
 
 class PokemonsScreen extends StatelessWidget {
   const PokemonsScreen({super.key});
@@ -22,6 +25,7 @@ class _PokemonViewState extends State<_PokemonView> {
   @override
   void initState() {
     super.initState();
+    context.read<PokemonsBloc>().loadNextPage();
     scrollController.addListener(() {});
   }
 
@@ -33,22 +37,27 @@ class _PokemonViewState extends State<_PokemonView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      // controller: scrollController,
-      slivers: [
-        SliverAppBar(
-          title: const Text('Pokemons'),
-          floating: true,
-          backgroundColor: Colors.white.withValues(alpha: 0.8),
-        ),
-        const _PokemonGrid(),
-      ],
-    );
+    final pokemonState = context.read<PokemonsBloc>().state;
+
+    return pokemonState.isLoading
+        ? Scaffold(body: FullScreenLoader())
+        : CustomScrollView(
+            // controller: scrollController,
+            slivers: [
+              SliverAppBar(
+                title: const Text('Pokemons'),
+                floating: true,
+                backgroundColor: Colors.white.withValues(alpha: 0.8),
+              ),
+              _PokemonGrid(pokemons: pokemonState.simplePokemons),
+            ],
+          );
   }
 }
 
 class _PokemonGrid extends StatelessWidget {
-  const _PokemonGrid({super.key});
+  final List<SimplePokemon> pokemons;
+  const _PokemonGrid({required this.pokemons});
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +67,13 @@ class _PokemonGrid extends StatelessWidget {
         crossAxisSpacing: 3,
         mainAxisSpacing: 2,
       ),
-      itemCount: 10,
+      itemCount: pokemons.length,
+
       itemBuilder: (context, index) {
+        final pokemon = pokemons[index];
         return GestureDetector(
           //TODO:  onTap: ,
-          child: Image.network(
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png',
-            fit: BoxFit.contain,
-          ),
+          child: Image.network(pokemon.imageUrl, fit: BoxFit.contain),
         );
       },
     );

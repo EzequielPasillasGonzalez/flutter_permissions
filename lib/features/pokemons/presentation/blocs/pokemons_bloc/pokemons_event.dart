@@ -7,8 +7,4 @@ sealed class PokemonsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class OnLoadMorePokemons extends PokemonsEvent {
-  final int offset;
-
-  const OnLoadMorePokemons({required this.offset});
-}
+final class PokemonsLoadNextPage extends PokemonsEvent {}

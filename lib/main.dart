@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reforzamiento/config/config.dart';
+import 'package:reforzamiento/config/const/enviroment.dart';
 import 'package:reforzamiento/features/app_status/app_status.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Enviroment.initEnviroment();
 
   // Setear una horientacion
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

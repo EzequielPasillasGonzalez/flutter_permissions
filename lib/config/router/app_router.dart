@@ -20,7 +20,10 @@ final router = GoRouter(
 
     GoRoute(
       path: '/pokemons',
-      builder: (context, state) => const PokemonsScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (_) => PokemonsBloc(),
+        child: const PokemonsScreen(),
+      ),
       // TODO:  routes: [GoRoute(path: ':id', builder: (context, state) {})],
     ),
 
