@@ -47,7 +47,12 @@ class PokemonsBloc extends Bloc<PokemonsEvent, PokemonsState> {
         ),
       );
     } catch (e) {
-      emit(state.copyWith(errorMessage: 'Error al cargar más productos $e'));
+      emit(
+        state.copyWith(
+          errorMessage: 'Error al cargar más productos $e',
+          isLoading: false,
+        ),
+      );
     }
   }
 
@@ -62,7 +67,12 @@ class PokemonsBloc extends Bloc<PokemonsEvent, PokemonsState> {
 
       emit(state.copyWith(selectedPokemon: pokemon, isLoading: false));
     } catch (e) {
-      emit(state.copyWith(errorMessage: 'Error al cargar más productos $e'));
+      emit(
+        state.copyWith(
+          errorMessage: 'Error al cargar más productos $e',
+          isLoading: false,
+        ),
+      );
     }
   }
 }
