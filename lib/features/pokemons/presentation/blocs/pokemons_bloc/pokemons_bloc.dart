@@ -60,7 +60,9 @@ class PokemonsBloc extends Bloc<PokemonsEvent, PokemonsState> {
     GetPokemonById event,
     Emitter<PokemonsState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true, errorMessage: ''));
+    emit(
+      state.copyWith(isLoading: true, errorMessage: '', selectedPokemon: null),
+    );
 
     try {
       final pokemon = await pokemonRepositorieImp.getPokemonById(event.id);

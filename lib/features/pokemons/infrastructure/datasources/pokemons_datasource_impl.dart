@@ -15,7 +15,6 @@ class PokemonsDatasourceImpl extends PokemonsDatasource {
   @override
   Future<Pokemon> getPokemonById(int id) async {
     try {
-      id = id + 1;
       final response = await dio.get('/pokemon/$id');
 
       final pokeApiResponse = PokeapiPokemonResponse.fromJson(response.data);

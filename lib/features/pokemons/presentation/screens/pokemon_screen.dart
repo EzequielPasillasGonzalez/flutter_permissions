@@ -24,7 +24,10 @@ class _PokemonScreenState extends State<PokemonScreen> {
   Widget build(BuildContext context) {
     final pokemonState = context.watch<PokemonsBloc>().state;
     final pokemon = pokemonState.selectedPokemon;
-    final isLoading = pokemonState.isLoading || pokemon == null;
+    final isLoading =
+        pokemonState.isLoading ||
+        pokemon == null ||
+        (pokemon.id) != (widget.pokemonId);
 
     return isLoading
         ? FullScreenLoader()

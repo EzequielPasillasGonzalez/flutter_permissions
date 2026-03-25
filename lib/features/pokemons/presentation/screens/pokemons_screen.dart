@@ -97,7 +97,7 @@ class _PokemonGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final pokemon = pokemons[index];
         return GestureDetector(
-          onTap: () => context.push('/pokemons/$index'),
+          onTap: () => context.push('/pokemons/${pokemon.id}'),
           child: FadeInImage.assetNetwork(
             placeholder: 'assets/loaders/gorila-loader.gif',
             image: pokemon.imageUrl,
