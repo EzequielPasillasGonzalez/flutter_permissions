@@ -43,7 +43,7 @@ class _PokemonScreenState extends State<PokemonScreen> {
                   onPressed: () {
                     SharePlugin.shareLink(
                       title: pokemon.name,
-                      link: pokemon.imageUrl.first,
+                      link: '${Enviroment.appWebUrl}/pokemons/${pokemon.id}/',
                       subject: 'Mira este pokemon',
                     );
                   },

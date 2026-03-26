@@ -12,4 +12,8 @@ class Enviroment {
   static final String imagePokeMonBaseUrl =
       dotenv.env['IMAGE_BASE_URL'] ??
       (throw AssertionError('IMAGE_BASE_URL not found in .env files'));
+
+  static final String appWebUrl =
+      dotenv.env['APP_WEB_URL'] ??
+      (throw AssertionError('APP_WEB_URL not found in .env files'));
 }
