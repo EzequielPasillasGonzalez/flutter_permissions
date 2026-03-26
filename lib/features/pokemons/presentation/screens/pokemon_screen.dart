@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reforzamiento/config/config.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:reforzamiento/features/widgets/widgets.dart';
 
@@ -26,7 +27,7 @@ class _PokemonScreenState extends State<PokemonScreen> {
     final isLoading =
         pokemonState.isLoading ||
         pokemon == null ||
-        pokemon.id != widget.pokemonId;
+        (pokemon.id) != (widget.pokemonId);
 
     return isLoading
         ? FullScreenLoader()
@@ -37,6 +38,18 @@ class _PokemonScreenState extends State<PokemonScreen> {
                 style: TextStyle(color: Colors.black),
               ),
               backgroundColor: Colors.white.withValues(alpha: 0.8),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    SharePlugin.shareLink(
+                      title: pokemon.name,
+                      link: pokemon.imageUrl.first,
+                      subject: 'Mira este pokemon',
+                    );
+                  },
+                  icon: const Icon(Icons.share),
+                ),
+              ],
               leading: IconButton(
                 onPressed: () {
                   if (context.canPop()) context.pop();
@@ -48,7 +61,7 @@ class _PokemonScreenState extends State<PokemonScreen> {
                 ),
               ),
             ),
-            body: Center(child: Text('${pokemon.name}')),
+            body: Center(child: Image.network(pokemon.imageUrl.first)),
           );
   }
 }
