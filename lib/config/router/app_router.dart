@@ -21,7 +21,7 @@ final router = GoRouter(
     ),
 
     GoRoute(
-      path: '/bopmetrics',
+      path: '/biometrics',
       builder: (context, state) => const BiometricScreen(),
     ),
 
