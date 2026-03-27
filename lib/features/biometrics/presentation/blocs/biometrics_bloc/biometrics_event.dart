@@ -7,27 +7,14 @@ sealed class BiometricsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OnBiometricAuthenticated extends BiometricsEvent {
-  const OnBiometricAuthenticated();
+class CheckBiometricsAvailability extends BiometricsEvent {
+  const CheckBiometricsAvailability();
 }
 
-class OnBiometricNotAuthenticated extends BiometricsEvent {
-  const OnBiometricNotAuthenticated();
-}
+class AuthenticateUser extends BiometricsEvent {
+  final String reason;
+  const AuthenticateUser({required this.reason});
 
-class OnBiometricCanCheck extends BiometricsEvent {
-  const OnBiometricCanCheck();
+  @override
+  List<Object> get props => [reason];
 }
-
-class OnBiometricTooMuchItents extends BiometricsEvent {
-  const OnBiometricTooMuchItents();
-}
-
-class OnBiometricNotHardware extends BiometricsEvent {
-  const OnBiometricNotHardware();
-}
-
-class OnBiometricNotCredentialsSet extends BiometricsEvent {
-  const OnBiometricNotCredentialsSet();
-}
- 

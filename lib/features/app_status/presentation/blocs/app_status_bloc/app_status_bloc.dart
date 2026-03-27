@@ -37,27 +37,22 @@ class AppStatusBloc extends Bloc<AppStatusEvent, AppStatusState> {
   }
 
   void _onAppDetached(OnAppDetached event, Emitter<AppStatusState> emit) {
-    print('Detached');
     emit(const AppDetached());
   }
 
   void _onAppResumed(OnAppResumed event, Emitter<AppStatusState> emit) {
-    print('Resumed');
     emit(const AppResumed());
   }
 
   void _onAppInactive(OnAppInactive event, Emitter<AppStatusState> emit) {
-    print('Inactive');
     emit(const AppInactive());
   }
 
   void _onAppPaused(OnAppPaused event, Emitter<AppStatusState> emit) {
-    print('Paused');
     emit(const AppPaused());
   }
 
   void _onAppHiden(OnAppHiden event, Emitter<AppStatusState> emit) {
-    print('Hiden');
     emit(const AppHiden());
   }
 }

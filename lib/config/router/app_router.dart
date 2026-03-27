@@ -22,7 +22,10 @@ final router = GoRouter(
 
     GoRoute(
       path: '/biometrics',
-      builder: (context, state) => const BiometricScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => BiometricsBloc(),
+        child: const BiometricScreen(),
+      ),
     ),
 
     ShellRoute(
