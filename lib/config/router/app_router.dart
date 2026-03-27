@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reforzamiento/features/biometrics/biometrics.dart';
 import 'package:reforzamiento/features/home/home.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
@@ -17,6 +18,11 @@ final router = GoRouter(
     GoRoute(
       path: '/permissions',
       builder: (context, state) => const PermissionsScreen(),
+    ),
+
+    GoRoute(
+      path: '/bopmetrics',
+      builder: (context, state) => const BiometricScreen(),
     ),
 
     ShellRoute(
