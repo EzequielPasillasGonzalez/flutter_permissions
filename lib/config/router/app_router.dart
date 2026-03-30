@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/features/biometrics/biometrics.dart';
 import 'package:reforzamiento/features/home/home.dart';
+import 'package:reforzamiento/features/location/location.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
@@ -15,9 +16,25 @@ final router = GoRouter(
       builder: (context, state) => const PermissionsScreen(),
     ),
 
-    GoRoute(
-      path: '/permissions',
-      builder: (context, state) => const PermissionsScreen(),
+    ShellRoute(
+      builder: (context, state, child) => BlocProvider(
+        create: (_) =>
+            LocationBloc(permissionsBloc: context.read<PermissionsBloc>()),
+        child: child,
+      ),
+      routes: [
+        GoRoute(
+          path: '/location',
+          builder: (contet, state) => const LocationScreen(),
+        ),
+
+        GoRoute(path: '/maps', builder: (context, state) => const MapScreen()),
+
+        GoRoute(
+          path: '/controlled-map',
+          builder: (context, state) => const ControlledMapScreen(),
+        ),
+      ],
     ),
 
     GoRoute(
