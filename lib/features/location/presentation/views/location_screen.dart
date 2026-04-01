@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/features/location/location.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
     context.read<LocationBloc>().getCurrentLocation();
+    context.read<LocationBloc>().watchCurrentLocation();
   }
 
   @override
@@ -21,7 +23,17 @@ class _LocationScreenState extends State<LocationScreen> {
     final locationState = context.watch<LocationBloc>().state;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Ubicacion')),
+      appBar: AppBar(
+        title: const Text('Ubicacion'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            }
+          },
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

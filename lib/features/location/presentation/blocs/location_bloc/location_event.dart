@@ -10,3 +10,13 @@ sealed class LocationEvent extends Equatable {
 class GetCurrentLocation extends LocationEvent {
   const GetCurrentLocation();
 }
+
+class WatchLocation extends LocationEvent {
+  const WatchLocation();
+}
+
+class OnNewLocation extends LocationEvent {
+  final double lat;
+  final double lng;
+  const OnNewLocation(this.lat, this.lng);
+}
