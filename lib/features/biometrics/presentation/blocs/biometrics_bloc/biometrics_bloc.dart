@@ -17,7 +17,7 @@ class BiometricsBloc extends Bloc<BiometricsEvent, BiometricsState> {
 
   void authenticateUser(String reason) {
     add(AuthenticateUser(reason: reason));
-  }
+  } 
 
   Future<void> _onCheckAvailability(
     CheckBiometricsAvailability event,

@@ -13,12 +13,12 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    context.watch<LocationBloc>().getCurrentLocation();
+    context.read<LocationBloc>().getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
-    final locationState = context.read<LocationBloc>().state;
+    final locationState = context.watch<LocationBloc>().state;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Ubicacion')),
