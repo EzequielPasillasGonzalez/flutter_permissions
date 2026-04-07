@@ -22,8 +22,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   void watchCurrentLocation() => add(const WatchLocation());
 
-  
-
   void _onGetCurrentLocation(
     LocationEvent event,
     Emitter<LocationState> emit,
@@ -140,8 +138,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     }
 
     await _locationSubscription?.cancel();
-
-    emit(state.copyWith(loading: true));
 
     // SUSCRIPCIÓN ACTIVA
     _locationSubscription = Geolocator.getPositionStream().listen(

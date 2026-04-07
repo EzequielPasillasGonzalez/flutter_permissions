@@ -19,13 +19,14 @@ class _ControlledMapScreenState extends State<ControlledMapScreen> {
   void initState() {
     super.initState();
     locationBloc = context.read<LocationBloc>();
-    locationBloc.watchCurrentLocation();
+    locationBloc.getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
     final locationState = context.watch<LocationBloc>().state;
     final mapBloc = context.watch<MapBloc>();
+    final mapState = context.read<MapBloc>().state;
 
     if (locationState.loading) {
       return FullScreenLoader();
@@ -56,9 +57,8 @@ class _ControlledMapScreenState extends State<ControlledMapScreen> {
             bottom: 40,
             left: 20,
             child: IconButton.filledTonal(
-              onPressed: () {
-                mapBloc.goToLocation(locationState.lat, locationState.lng);
-              },
+              onPressed: () =>
+                  mapBloc.goToLocation(locationState.lat, locationState.lng),
               icon: const Icon(Icons.location_searching),
             ),
           ),
@@ -68,8 +68,12 @@ class _ControlledMapScreenState extends State<ControlledMapScreen> {
             bottom: 90,
             left: 20,
             child: IconButton.filledTonal(
-              onPressed: () {},
-              icon: const Icon(Icons.directions_run),
+              onPressed: () => mapBloc.setToggleFollowUser(),
+              icon: Icon(
+                mapState.followUser
+                    ? Icons.directions_run
+                    : Icons.accessibility_new_outlined,
+              ),
             ),
           ),
 
@@ -78,7 +82,11 @@ class _ControlledMapScreenState extends State<ControlledMapScreen> {
             bottom: 140,
             left: 20,
             child: IconButton.filledTonal(
-              onPressed: () {},
+              onPressed: () => mapBloc.setMarker(
+                locationState.lat,
+                locationState.lng,
+                title: 'Mi ubicación',
+              ),
               icon: const Icon(Icons.pin_drop),
             ),
           ),
@@ -101,8 +109,10 @@ class _MapView extends StatefulWidget {
 class _MapViewState extends State<_MapView> {
   @override
   Widget build(BuildContext context) {
+    final mapState = context.watch<MapBloc>().state;
     return GoogleMap(
       mapType: MapType.normal,
+      markers: mapState.markersSet,
       myLocationButtonEnabled: false,
       zoomControlsEnabled: false,
       myLocationEnabled: true,

@@ -22,7 +22,12 @@ final router = GoRouter(
             create: (_) =>
                 LocationBloc(permissionsBloc: context.read<PermissionsBloc>()),
           ),
-          BlocProvider(create: (_) => MapBloc()),
+
+          // Para el segundo, se usa el "context" que ya TIENE al de arriba para acceder a el LocationBloc
+          BlocProvider(
+            create: (context) =>
+                MapBloc(locationBloc: context.read<LocationBloc>()),
+          ),
         ],
         child: child,
       ),

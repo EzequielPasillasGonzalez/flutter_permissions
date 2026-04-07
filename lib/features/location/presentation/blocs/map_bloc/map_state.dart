@@ -27,6 +27,8 @@ class MapState extends Equatable {
     );
   }
 
+  Set<Marker> get markersSet => Set.from(markers);
+
   @override
   List<Object?> get props => [isReady, followUser, markers, controller];
 }
