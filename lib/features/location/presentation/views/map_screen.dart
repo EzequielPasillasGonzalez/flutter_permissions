@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reforzamiento/features/location/location.dart';
+import 'package:reforzamiento/features/widgets/widgets.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -21,25 +22,29 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentPosition = context.watch<LocationBloc>().state;
+    final locationState = context.watch<LocationBloc>().state;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MapScreen'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            if (context.canPop()) {
-              context.pop();
-            }
-          },
+    if (locationState.loading) {
+      return FullScreenLoader();
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('MapScreen'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              }
+            },
+          ),
         ),
-      ),
-      body: _MapView(
-        initialLat: currentPosition.lat,
-        initialLng: currentPosition.lng,
-      ),
-    );
+        body: _MapView(
+          initialLat: locationState.lat,
+          initialLng: locationState.lng,
+        ),
+      );
+    }
   }
 }
 
