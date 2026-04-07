@@ -110,6 +110,7 @@ class _MapViewState extends State<_MapView> {
   @override
   Widget build(BuildContext context) {
     final mapState = context.watch<MapBloc>().state;
+    final mapBloc = context.read<MapBloc>();
     return GoogleMap(
       mapType: MapType.normal,
       markers: mapState.markersSet,
@@ -124,6 +125,11 @@ class _MapViewState extends State<_MapView> {
       onMapCreated: (GoogleMapController controller) {
         context.read<MapBloc>().setControllerMap(controller);
       },
+      onLongPress: (argument) => mapBloc.setMarker(
+        argument.latitude,
+        argument.longitude,
+        title: 'Marcador desde long press',
+      ),
     );
   }
 }
