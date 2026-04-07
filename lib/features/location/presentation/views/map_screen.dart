@@ -62,7 +62,7 @@ class _MapViewState extends State<_MapView> {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      mapType: MapType.hybrid,
+      mapType: MapType.normal,
       initialCameraPosition: CameraPosition(
         target: LatLng(widget.initialLat, widget.initialLng),
         zoom: 12,
