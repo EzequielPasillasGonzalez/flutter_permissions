@@ -5,7 +5,6 @@ import 'package:reforzamiento/features/home/home.dart';
 import 'package:reforzamiento/features/location/location.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
-
 import 'package:reforzamiento/features/sensors/sensors.dart';
 
 final router = GoRouter(
@@ -17,9 +16,14 @@ final router = GoRouter(
     ),
 
     ShellRoute(
-      builder: (context, state, child) => BlocProvider(
-        create: (_) =>
-            LocationBloc(permissionsBloc: context.read<PermissionsBloc>()),
+      builder: (context, state, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) =>
+                LocationBloc(permissionsBloc: context.read<PermissionsBloc>()),
+          ),
+          BlocProvider(create: (_) => MapBloc()),
+        ],
         child: child,
       ),
       routes: [
