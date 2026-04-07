@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
@@ -21,6 +21,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   void getCurrentLocation() => add(const GetCurrentLocation());
 
   void watchCurrentLocation() => add(const WatchLocation());
+
+  
 
   void _onGetCurrentLocation(
     LocationEvent event,

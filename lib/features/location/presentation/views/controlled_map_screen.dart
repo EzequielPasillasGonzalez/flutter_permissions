@@ -25,6 +25,7 @@ class _ControlledMapScreenState extends State<ControlledMapScreen> {
   @override
   Widget build(BuildContext context) {
     final locationState = context.watch<LocationBloc>().state;
+    final mapBloc = context.watch<MapBloc>();
 
     if (locationState.loading) {
       return FullScreenLoader();
@@ -56,7 +57,7 @@ class _ControlledMapScreenState extends State<ControlledMapScreen> {
             left: 20,
             child: IconButton.filledTonal(
               onPressed: () {
-                locationBloc.getCurrentLocation();
+                mapBloc.goToLocation(locationState.lat, locationState.lng);
               },
               icon: const Icon(Icons.location_searching),
             ),
@@ -110,7 +111,9 @@ class _MapViewState extends State<_MapView> {
         target: LatLng(widget.initialLat, widget.initialLng),
         zoom: 12,
       ),
-      onMapCreated: (GoogleMapController controller) {},
+      onMapCreated: (GoogleMapController controller) {
+        context.read<MapBloc>().setControllerMap(controller);
+      },
     );
   }
 }
