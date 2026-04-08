@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reforzamiento/features/ads/ads.dart';
 import 'package:reforzamiento/features/badge/badge.dart';
-
 import 'package:reforzamiento/features/biometrics/biometrics.dart';
 import 'package:reforzamiento/features/home/home.dart';
 import 'package:reforzamiento/features/location/location.dart';
@@ -15,6 +15,14 @@ final router = GoRouter(
     GoRoute(
       path: '/permissions',
       builder: (context, state) => const PermissionsScreen(),
+    ),
+    GoRoute(
+      path: '/ad-fullscreen',
+      builder: (context, state) => const AdFullScreen(),
+    ),
+    GoRoute(
+      path: '/ad-rewarded',
+      builder: (context, state) => const AdRewardedScreen(),
     ),
     GoRoute(
       path: '/badge',
