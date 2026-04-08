@@ -21,6 +21,7 @@ dependencies:
   local_auth: ^3.0.1
   local_auth_android: ^2.0.7
   permission_handler: ^12.0.1
+  quick_actions: ^1.1.0
   sensors_plus: ^7.0.0
   share_plus: ^12.0.1
 
