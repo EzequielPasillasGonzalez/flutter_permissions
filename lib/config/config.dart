@@ -1,4 +1,5 @@
 export 'const/enviroment.dart';
+export 'plugins/app_badge_plugin.dart';
 export 'plugins/local_auth_plugin.dart';
 export 'plugins/local_auth_status.dart';
 export 'plugins/quick_actions_plugin.dart';
