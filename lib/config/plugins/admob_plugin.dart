@@ -12,6 +12,10 @@ final adInterstitialId = Platform.isAndroid
     ? Enviroment.adInterstitialIdAndroid
     : Enviroment.adInterstitialIdIOs;
 
+final adRewardedId = Platform.isAndroid
+    ? Enviroment.adRewardedIdAndroid
+    : Enviroment.adRewardedIdIOs;
+
 class AdmobPlugin {
   static Future<void> initialize() async {
     await MobileAds.instance.initialize();
@@ -61,6 +65,30 @@ class AdmobPlugin {
         onAdFailedToLoad: (LoadAdError error) {
           // Called when an ad request failed.
           debugPrint('Interstitial Ad failed to load with error: $error');
+          completer.completeError(error);
+        },
+      ),
+    );
+
+    return completer.future;
+  }
+
+  static Future<RewardedAd> loadRewardedAd() async {
+    Completer<RewardedAd> completer = Completer();
+
+    RewardedAd.load(
+      adUnitId: adRewardedId,
+      request: const AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        onAdLoaded: (RewardedAd ad) {
+          // Called when an ad is successfully received.
+          debugPrint('Rewarded Ad was loaded.');
+          // Keep a reference to the ad so you can show it later.
+          completer.complete(ad);
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          // Called when an ad request failed.
+          debugPrint('Rewarded Ad failed to load with error: $error');
           completer.completeError(error);
         },
       ),

@@ -20,6 +20,23 @@ class AdmobCubit extends Cubit<AdmobState> {
     ad.show();
   }
 
+  void showRewardedAd() {
+    final adToShow = state.rewardedAd;
+    if (adToShow == null) return;
+
+    emit(state.copyWith(rewardedAd: () => null));
+    adToShow.show(
+      onUserEarnedReward: (ad, reward) {
+        debugPrint('¡Premio otorgado! Cantidad: ${reward.amount}');
+        emit(
+          state.copyWith(
+            rewardedPoints: (state.rewardedPoints + reward.amount).toInt(),
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> loadBanner() async {
     // Evitar cargar dos veces si ya está cargando o ya hay un anuncio
     if (state.isLoading || state.bannerAd != null) return;
@@ -79,10 +96,43 @@ class AdmobCubit extends Cubit<AdmobState> {
     }
   }
 
+  Future<void> loadRewardedAd() async {
+    if (state.isLoading || state.rewardedAd != null) return;
+    emit(state.copyWith(isLoading: true));
+
+    try {
+      final ad = await AdmobPlugin.loadRewardedAd();
+
+      ad.fullScreenContentCallback = FullScreenContentCallback(
+        onAdShowedFullScreenContent: (ad) => debugPrint('Anuncio en pantalla'),
+
+        onAdDismissedFullScreenContent: (ad) {
+          debugPrint('El usuario cerró el anuncio');
+          ad.dispose(); // Aquí es el único lugar donde se destruye
+          loadRewardedAd(); // Cargamos el siguiente
+        },
+
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          debugPrint('Falló al mostrarse: $error');
+          ad.dispose(); //  Destruimos porque falló
+          // Limpiamos el estado por si acaso seguía ahí
+          emit(state.copyWith(rewardedAd: () => null));
+          loadRewardedAd();
+        },
+      );
+
+      emit(state.copyWith(rewardedAd: () => ad, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, errorMessage: () => 'Error: $e'));
+    }
+  }
+
   //  Limpiar el anuncio cuando el Cubit se destruya
   @override
   Future<void> close() {
     state.bannerAd?.dispose();
+    state.interstitialAd?.dispose();
+    state.rewardedAd?.dispose();
     return super.close();
   }
 }

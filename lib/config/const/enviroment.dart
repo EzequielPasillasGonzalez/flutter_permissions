@@ -18,20 +18,28 @@ class Enviroment {
       (throw AssertionError('APP_WEB_URL not found in .env files'));
 
   static final String adBannerIdAndroid =
-      dotenv.env['ADBANNER_ID_ANDROID'] ??
-      (throw AssertionError('ADBANNER_ID_ANDROID not found in .env files'));
+      dotenv.env['AD_BANNER_ID_ANDROID'] ??
+      (throw AssertionError('AD_BANNER_ID_ANDROID not found in .env files'));
 
   static final String adBannerIdIOs =
-      dotenv.env['ADBANNER_ID_IOS'] ??
-      (throw AssertionError('ADBANNER_ID_IOS not found in .env files'));
+      dotenv.env['AD_BANNER_ID_IOS'] ??
+      (throw AssertionError('AD_BANNER_ID_IOS not found in .env files'));
 
   static final String adInterstitialIdAndroid =
-      dotenv.env['ADINTERSTITIAL_ID_ANDROID'] ??
+      dotenv.env['AD_INTERSTITIAL_ID_ANDROID'] ??
       (throw AssertionError(
-        'ADINTERSTITIAL_ID_ANDROID not found in .env files',
+        'AD_INTERSTITIAL_ID_ANDROID not found in .env files',
       ));
 
   static final String adInterstitialIdIOs =
-      dotenv.env['ADINTERSTITIAL_ID_IOS'] ??
-      (throw AssertionError('ADINTERSTITIAL_ID_IOS not found in .env files'));
+      dotenv.env['AD_INTERSTITIAL_ID_IOS'] ??
+      (throw AssertionError('AD_INTERSTITIAL_ID_IOS not found in .env files'));
+
+  static final String adRewardedIdAndroid =
+      dotenv.env['AD_REWARDED_ID_ANDROID'] ??
+      (throw AssertionError('AD_REWARDED_ID_ANDROID not found in .env files'));
+
+  static final String adRewardedIdIOs =
+      dotenv.env['AD_REWARDED_ID_IOS'] ??
+      (throw AssertionError('AD_REWARDED_ID_IOS not found in .env files'));
 }
