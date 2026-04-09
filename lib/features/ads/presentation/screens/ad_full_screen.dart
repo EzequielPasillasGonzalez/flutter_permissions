@@ -23,7 +23,11 @@ class _AdFullScreenState extends State<AdFullScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Ad Full Screen')),
-      body: Center(child: _AdInterstitialWidget(state: adState)),
+      body: Center(
+        child: adState.showAds
+            ? _AdInterstitialWidget(state: adState)
+            : const Text('Los anuncios están deshabilitados'),
+      ),
     );
   }
 }

@@ -47,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           // Ad Banner
-          _AdBannerWidget(state: adBannerState),
+          adBannerState.showAds
+              ? _AdBannerWidget(state: adBannerState)
+              : const SizedBox(),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reforzamiento/features/ads/ads.dart';
 import 'package:reforzamiento/features/permissions/presentation/blocs/permissions_bloc/permissions_bloc.dart';
 
 class PermissionsScreen extends StatelessWidget {
@@ -19,6 +20,8 @@ class _PermissionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ads = context.watch<AdmobCubit>().state;
+    final adsCubit = context.read<AdmobCubit>();
     final permissions = context.watch<PermissionsBloc>().state;
     final permissionsBloc = context.read<PermissionsBloc>();
 
@@ -76,6 +79,15 @@ class _PermissionsView extends StatelessWidget {
           },
           title: const Text('Location cuando se usa'),
           subtitle: Text('Estado actual: ${permissions.locationWhenInUse}'),
+        ),
+
+        CheckboxListTile(
+          value: ads.showAds,
+          onChanged: (_) {
+            adsCubit.changeAdsState();
+          },
+          title: const Text('¿Quieres ver anuncios?'),
+          subtitle: Text('Estado actual: ${ads.showAds ? 'Sí' : 'No'}'),
         ),
       ],
     );

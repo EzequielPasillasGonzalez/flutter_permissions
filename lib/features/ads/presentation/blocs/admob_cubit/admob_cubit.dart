@@ -2,12 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:reforzamiento/config/plugins/admob_plugin.dart';
+import 'package:reforzamiento/config/config.dart';
 
 part 'admob_state.dart';
 
 class AdmobCubit extends Cubit<AdmobState> {
-  AdmobCubit() : super(AdmobState());
+  AdmobCubit() : super(AdmobState()) {
+    checkAdsState();
+  }
+
+  void checkAdsState() async {
+    final isEnabled = await SharedPreferencesPlugin.getBool('showAds');
+    emit(state.copyWith(showAds: isEnabled));
+  }
+
+  void changeAdsState() async {
+    final newState = !state.showAds;
+    await SharedPreferencesPlugin.setBool('showAds', newState);
+    emit(state.copyWith(showAds: newState));
+  }
 
   void showInterstitialAd() {
     final ad = state.interstitialAd;

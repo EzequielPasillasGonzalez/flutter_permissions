@@ -6,11 +6,13 @@ class AdmobState extends Equatable {
   final RewardedAd? rewardedAd;
   final int rewardedPoints;
   final bool isLoading;
+  final bool showAds;
   final String? errorMessage;
 
   const AdmobState({
     this.bannerAd,
     this.isLoading = false,
+    this.showAds = true,
     this.rewardedPoints = 0,
     this.errorMessage,
     this.interstitialAd,
@@ -22,6 +24,7 @@ class AdmobState extends Equatable {
     InterstitialAd? Function()? interstitialAd,
     RewardedAd? Function()? rewardedAd,
     bool? isLoading,
+    bool? showAds,
     int? rewardedPoints,
     String? Function()? errorMessage,
   }) => AdmobState(
@@ -31,6 +34,7 @@ class AdmobState extends Equatable {
         : this.interstitialAd,
     rewardedAd: (rewardedAd != null) ? rewardedAd() : this.rewardedAd,
     isLoading: isLoading ?? this.isLoading,
+    showAds: showAds ?? this.showAds,
     rewardedPoints: rewardedPoints ?? this.rewardedPoints,
     errorMessage: (errorMessage != null) ? errorMessage() : this.errorMessage,
   );
@@ -41,6 +45,7 @@ class AdmobState extends Equatable {
     interstitialAd,
     rewardedAd,
     isLoading,
+    showAds,
     rewardedPoints,
     errorMessage,
   ];

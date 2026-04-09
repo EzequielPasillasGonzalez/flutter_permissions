@@ -23,13 +23,15 @@ class _AdRewardedScreenState extends State<AdRewardedScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Ad Rewarded Screen')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Puntos obtenidos: ${adState.rewardedPoints}'),
-            _AdRewardedWidget(state: adState),
-          ],
-        ),
+        child: adState.showAds
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Puntos obtenidos: ${adState.rewardedPoints}'),
+                  _AdRewardedWidget(state: adState),
+                ],
+              )
+            : const Text('Los anuncios están deshabilitados'),
       ),
     );
   }
