@@ -2,22 +2,36 @@ part of 'admob_cubit.dart';
 
 class AdmobState extends Equatable {
   final BannerAd? bannerAd;
+  final InterstitialAd? interstitialAd;
   final bool isLoading;
   final String? errorMessage;
 
-  const AdmobState({this.bannerAd, this.isLoading = false, this.errorMessage});
+  const AdmobState({
+    this.bannerAd,
+    this.isLoading = false,
+    this.errorMessage,
+    this.interstitialAd,
+  });
 
   AdmobState copyWith({
-    BannerAd? bannerAd,
+    BannerAd? Function()? bannerAd,
+    InterstitialAd? Function()? interstitialAd,
     bool? isLoading,
-    String? errorMessage,
+    String? Function()? errorMessage,
   }) => AdmobState(
-    bannerAd: bannerAd ?? this.bannerAd,
+    bannerAd: (bannerAd != null) ? bannerAd() : this.bannerAd,
+    interstitialAd: (interstitialAd != null)
+        ? interstitialAd()
+        : this.interstitialAd,
     isLoading: isLoading ?? this.isLoading,
-    errorMessage:
-        errorMessage, // Aquí permitir que sea null para limpiar errores
+    errorMessage: (errorMessage != null) ? errorMessage() : this.errorMessage,
   );
 
   @override
-  List<Object?> get props => [bannerAd, isLoading, errorMessage];
+  List<Object?> get props => [
+    bannerAd,
+    interstitialAd,
+    isLoading,
+    errorMessage,
+  ];
 }

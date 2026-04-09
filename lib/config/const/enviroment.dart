@@ -24,4 +24,14 @@ class Enviroment {
   static final String adBannerIdIOs =
       dotenv.env['ADBANNER_ID_IOS'] ??
       (throw AssertionError('ADBANNER_ID_IOS not found in .env files'));
+
+  static final String adInterstitialIdAndroid =
+      dotenv.env['ADINTERSTITIAL_ID_ANDROID'] ??
+      (throw AssertionError(
+        'ADINTERSTITIAL_ID_ANDROID not found in .env files',
+      ));
+
+  static final String adInterstitialIdIOs =
+      dotenv.env['ADINTERSTITIAL_ID_IOS'] ??
+      (throw AssertionError('ADINTERSTITIAL_ID_IOS not found in .env files'));
 }

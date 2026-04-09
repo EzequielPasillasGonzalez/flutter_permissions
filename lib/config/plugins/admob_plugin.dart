@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -6,6 +7,10 @@ import 'package:reforzamiento/config/const/enviroment.dart';
 final adBannerId = Platform.isAndroid
     ? Enviroment.adBannerIdAndroid
     : Enviroment.adBannerIdIOs;
+
+final adInterstitialId = Platform.isAndroid
+    ? Enviroment.adInterstitialIdAndroid
+    : Enviroment.adInterstitialIdIOs;
 
 class AdmobPlugin {
   static Future<void> initialize() async {
@@ -20,14 +25,14 @@ class AdmobPlugin {
       listener: BannerAdListener(
         // Called when an ad is successfully received.
         onAdLoaded: (ad) {
-          debugPrint("Ad was loaded. $ad");
+          debugPrint("Banner  Ad was loaded. $ad");
           // setState(() {
           //   _bannerAd = ad as BannerAd;
           // });
         },
         onAdFailedToLoad: (ad, err) {
           // Called when an ad request failed.
-          debugPrint("Ad failed to load with error: $err");
+          debugPrint("Banner Ad failed to load with error: $err");
           ad.dispose();
         },
       ),
@@ -38,5 +43,29 @@ class AdmobPlugin {
 
     // Retorna la instancia del anuncio ya cargándose
     return ad;
+  }
+
+  static Future<InterstitialAd> loadInterstitialAd() async {
+    Completer<InterstitialAd> completer = Completer();
+
+    InterstitialAd.load(
+      adUnitId: adInterstitialId,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          // Called when an ad is successfully received.
+          debugPrint('Interstitial Ad was loaded.');
+          // Keep a reference to the ad so you can show it later.
+          completer.complete(ad);
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          // Called when an ad request failed.
+          debugPrint('Interstitial Ad failed to load with error: $error');
+          completer.completeError(error);
+        },
+      ),
+    );
+
+    return completer.future;
   }
 }
