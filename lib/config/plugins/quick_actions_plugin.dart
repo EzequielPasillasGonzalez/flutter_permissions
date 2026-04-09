@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:reforzamiento/config/config.dart';
 
@@ -6,7 +7,7 @@ class QuickActionsPlugin {
     final QuickActions quickActions = const QuickActions();
 
     quickActions.initialize((shortcutType) {
-      print(shortcutType);
+      debugPrint(shortcutType);
       switch (shortcutType) {
         case 'biometric':
           router.push('/biometrics');

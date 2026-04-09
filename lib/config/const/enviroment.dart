@@ -16,4 +16,12 @@ class Enviroment {
   static final String appWebUrl =
       dotenv.env['APP_WEB_URL'] ??
       (throw AssertionError('APP_WEB_URL not found in .env files'));
+
+  static final String adBannerIdAndroid =
+      dotenv.env['ADBANNER_ID_ANDROID'] ??
+      (throw AssertionError('ADBANNER_ID_ANDROID not found in .env files'));
+
+  static final String adBannerIdIOs =
+      dotenv.env['ADBANNER_ID_IOS'] ??
+      (throw AssertionError('ADBANNER_ID_IOS not found in .env files'));
 }

@@ -4,7 +4,7 @@ import 'package:reforzamiento/config/config.dart';
 class LocalAuthPlugin {
   static final LocalAuthentication auth = LocalAuthentication();
 
-  static availableBiometrics() async {
+  static void availableBiometrics() async {
     final List<BiometricType> availableBiometrics = await auth
         .getAvailableBiometrics();
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reforzamiento/config/config.dart';
+import 'package:reforzamiento/features/ads/ads.dart';
 
 import 'package:reforzamiento/features/app_status/app_status.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
@@ -14,6 +15,9 @@ void main() async {
   // Registrar las acciones fuera de la app, las que aparecen cuando dejas precionado el icono
   QuickActionsPlugin.registerAction();
 
+  // Initialize the Mobile Ads SDK
+  await AdmobPlugin.initialize();
+
   // Setear una horientacion
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -22,6 +26,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => AppStatusBloc()),
         BlocProvider(create: (_) => PermissionsBloc()),
+        BlocProvider(create: (_) => AdmobCubit()),
       ],
       child: const MainApp(),
     ),

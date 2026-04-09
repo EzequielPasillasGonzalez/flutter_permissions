@@ -59,6 +59,9 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+<meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3093562623799828~7825703099"/>
 
 <meta-data 
         android:name="com.google.android.geo.API_KEY"
