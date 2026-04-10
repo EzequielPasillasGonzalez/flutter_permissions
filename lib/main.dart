@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reforzamiento/config/config.dart';
 import 'package:reforzamiento/features/ads/ads.dart';
-
 import 'package:reforzamiento/features/app_status/app_status.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +14,23 @@ void main() async {
 
   // Registrar las acciones fuera de la app, las que aparecen cuando dejas precionado el icono
   QuickActionsPlugin.registerAction();
+
+  Workmanager().initialize(callbackDispatcher);
+
+  Workmanager().registerOneOffTask(
+    "com.chekepasillas.flutter_permissions.simpleTask",
+    "com.chekepasillas.flutter_permissions.simpleTask",
+    inputData: {
+      'hola': 'mundo',
+    }, // Asi se manda la informacion que se manda al background
+    constraints: Constraints(
+      networkType: NetworkType.connected, // Require internet connection
+      // requiresBatteryNotLow: true, // Don't run when battery is low
+      // requiresCharging: false, // Can run when not charging
+      // requiresDeviceIdle: false, // Can run when device is active
+      // requiresStorageNotLow: true, // Don't run when storage is low
+    ),
+  );
 
   // Initialize the Mobile Ads SDK
   await AdmobPlugin.initialize();

@@ -1,5 +1,4 @@
-import 'package:reforzamiento/features/pokemons/domain/entities/pokemon.dart';
-import 'package:reforzamiento/features/pokemons/infrastructure/infrastructure.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
 class PokemonMapper {
   static Pokemon pokeapiPokemonResponseToEntity(

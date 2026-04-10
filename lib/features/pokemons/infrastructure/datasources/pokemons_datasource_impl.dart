@@ -2,8 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:reforzamiento/config/const/enviroment.dart';
 
-import 'package:reforzamiento/features/pokemons/domain/domain.dart';
-import 'package:reforzamiento/features/pokemons/infrastructure/infrastructure.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:reforzamiento/features/shared/custom_erro.dart';
 
 class PokemonsDatasourceImpl extends PokemonsDatasource {

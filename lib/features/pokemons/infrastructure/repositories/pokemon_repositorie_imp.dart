@@ -1,4 +1,4 @@
-import 'package:reforzamiento/features/pokemons/domain/domain.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
 class PokemonRepositorieImp extends PokemonsRepositories {
   PokemonRepositorieImp({required this.datasource});

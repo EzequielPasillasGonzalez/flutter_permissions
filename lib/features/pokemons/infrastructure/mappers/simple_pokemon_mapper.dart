@@ -1,5 +1,5 @@
 import 'package:reforzamiento/config/const/enviroment.dart';
-import 'package:reforzamiento/features/pokemons/domain/domain.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
 class SimplePokemonMapper {
   static SimplePokemon jsonToEntity(Map<String, dynamic> json) {

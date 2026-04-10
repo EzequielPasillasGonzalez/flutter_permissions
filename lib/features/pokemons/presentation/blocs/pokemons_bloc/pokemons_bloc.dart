@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:reforzamiento/features/pokemons/domain/domain.dart';
-import 'package:reforzamiento/features/pokemons/infrastructure/infrastructure.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
 part 'pokemons_event.dart';
 part 'pokemons_state.dart';

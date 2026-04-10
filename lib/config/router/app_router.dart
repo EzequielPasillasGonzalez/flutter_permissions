@@ -91,6 +91,10 @@ final router = GoRouter(
             ),
           ],
         ),
+        GoRoute(
+          path: '/pokemons-db',
+          builder: (context, state) => const PokemonsDbScreen(),
+        ),
       ],
     ),
 

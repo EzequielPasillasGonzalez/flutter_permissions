@@ -28,6 +28,7 @@ final menuItems = <MenuItem>[
   MenuItem('Badge', Icons.notification_important, '/badge'),
   MenuItem('Ad FullScreen', Icons.ad_units_rounded, '/ad-fullscreen'),
   MenuItem('Ad Rewarded', Icons.fort_sharp, '/ad-rewarded'),
+  MenuItem('Background Process', Icons.storage_rounded, '/pokemons-db'),
 ];
 
 class MainMenu extends StatelessWidget {

@@ -8,3 +8,4 @@ export 'router/app_router.dart';
 export 'theme/app_theme.dart';
 export 'plugins/admob_plugin.dart';
 export 'plugins/shared_preferences_plugin.dart';
+export 'workmanager/callback_dispatcher.dart';
