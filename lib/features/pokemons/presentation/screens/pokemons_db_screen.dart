@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reforzamiento/config/config.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
+import 'package:workmanager/workmanager.dart';
 
 class PokemonsDbScreen extends StatelessWidget {
   const PokemonsDbScreen({super.key});
@@ -13,7 +15,12 @@ class PokemonsDbScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              //TODO: CREAR ACCCION
+              Workmanager().registerOneOffTask(
+                fetchBackgroundTaskKey,
+                fetchBackgroundTaskKey,
+                initialDelay: const Duration(seconds: 3),
+                inputData: {'data': 'fetching background pokemon'},
+              );
             },
             icon: const Icon(Icons.add_alarm_sharp),
           ),
