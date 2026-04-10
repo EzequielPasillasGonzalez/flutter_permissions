@@ -1,10 +1,4 @@
-import 'package:isar/isar.dart';
-
-part 'pokemon.g.dart';
-
-@collection
 class Pokemon {
-  Id isarId = Isar.autoIncrement;
   final int id;
   final String name;
   final List<String> imageUrl;
@@ -12,9 +6,7 @@ class Pokemon {
   final List<String> abilities;
   final int height;
   final int weight;
-
-  @ignore // Isar ignora este campo al generar el esquema
-  final Map<String, int>? stats;
+  final Map<String, int> stats;
 
   Pokemon({
     required this.id,
@@ -24,6 +16,6 @@ class Pokemon {
     required this.abilities,
     required this.height,
     required this.weight,
-    this.stats = const {},
+    required this.stats,
   });
 }

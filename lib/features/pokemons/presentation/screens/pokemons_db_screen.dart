@@ -49,7 +49,7 @@ class PokemonsDbScreen extends StatelessWidget {
 }
 
 class _PokemonGrid extends StatelessWidget {
-  final List<Pokemon> pokemons;
+  final List<SimplePokemon> pokemons;
 
   const _PokemonGrid({required this.pokemons});
 
