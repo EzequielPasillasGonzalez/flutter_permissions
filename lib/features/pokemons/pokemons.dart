@@ -12,8 +12,6 @@ export 'infrastructure/models/pokeapi_pokemon_response.dart';
 export 'infrastructure/repositories/pokemon_isar_local_db_respositorie_impl.dart';
 export 'infrastructure/repositories/pokemon_repositorie_imp.dart';
 export 'presentation/blocs/pokemons_bloc/pokemons_bloc.dart';
-export 'presentation/blocs/pokemons_bloc/pokemons_event.dart';
-export 'presentation/blocs/pokemons_bloc/pokemons_state.dart';
 export 'presentation/screens/pokemon_screen.dart';
 export 'presentation/screens/pokemons_db_screen.dart';
 export 'presentation/screens/pokemons_screen.dart';
