@@ -23,7 +23,8 @@ subprojects {
     plugins.withType<com.android.build.gradle.api.AndroidBasePlugin> {
         if (project.name == "isar_community_flutter_libs") {
             configure<com.android.build.gradle.LibraryExtension> {
-                namespace = "dev.isar.isar_community_flutter_libs"
+                
+                namespace = "dev.isar.isar_flutter_libs" 
             }
         }
     }

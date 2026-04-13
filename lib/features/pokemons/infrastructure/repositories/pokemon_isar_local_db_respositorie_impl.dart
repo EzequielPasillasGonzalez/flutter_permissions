@@ -1,7 +1,7 @@
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
-class PokemonIsarLocalDbRespositorieImple extends PokemonsLocalDbRepository {
-  PokemonIsarLocalDbRespositorieImple([PokemonsLocalDbDatasource? datasource])
+class PokemonIsarLocalDbRespositorieImpl extends PokemonsLocalDbRepository {
+  PokemonIsarLocalDbRespositorieImpl([PokemonsLocalDbDatasource? datasource])
     : _datasource = datasource ?? PokemonIsarLocalDbDatasourceImpl();
 
   final PokemonsLocalDbDatasource _datasource;

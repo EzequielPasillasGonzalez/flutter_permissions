@@ -13,4 +13,12 @@ class SimplePokemonMapper {
       imageUrl: '${Enviroment.imagePokeMonBaseUrl}/$id.png',
     );
   }
+
+  static SimplePokemon pokemonEntityToSimplePokemon(Pokemon pokemon) {
+    return SimplePokemon(
+      id: pokemon.id.toString(),
+      name: pokemon.name,
+      imageUrl: pokemon.imageUrl.first,
+    );
+  }
 }

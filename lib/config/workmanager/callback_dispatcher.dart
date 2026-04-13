@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:workmanager/workmanager.dart';
 
 const String fetchBackgroundTaskKey =
@@ -12,10 +13,10 @@ void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     switch (task) {
       case fetchBackgroundTaskKey:
-        debugPrint(fetchBackgroundTaskKey);
+        await loadNextPokemon();
         break;
       case fetchPeriodicBackgroundTaskKey:
-        debugPrint(fetchPeriodicBackgroundTaskKey);
+        debugPrint('fetchPeriodicBackgroundTaskKey');
         break;
 
       case Workmanager.iOSBackgroundTask:
@@ -29,4 +30,25 @@ void callbackDispatcher() {
     // // Your background work here
     // return Future.value(true);
   });
+}
+
+Future loadNextPokemon() async {
+  final localDbRepository = PokemonIsarLocalDbRespositorieImpl();
+  final pokemonRepository = PokemonRepositorieImp(
+    datasource: PokemonsDatasourceImpl(),
+  );
+  final lastPokemonId = await localDbRepository.pokemonCount() + 1;
+
+  try {
+    final pokemon = await pokemonRepository.getPokemonById(lastPokemonId);
+
+    final pokemonEntity = SimplePokemonMapper.pokemonEntityToSimplePokemon(
+      pokemon,
+    );
+
+    await localDbRepository.insertPokemon(pokemonEntity);
+    debugPrint('Pokemon inserted: ${pokemonEntity.name}');
+  } catch (e) {
+    debugPrint('$e');
+  }
 }
