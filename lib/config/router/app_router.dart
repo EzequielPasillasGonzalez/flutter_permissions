@@ -75,8 +75,15 @@ final router = GoRouter(
 
     // --- POKEMONS ---
     ShellRoute(
-      builder: (context, state, child) =>
-          BlocProvider(create: (_) => PokemonsBloc(), child: child),
+      builder: (context, state, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => PokemonsBloc()),
+          BlocProvider(
+            create: (_) => PokemonsDbCubit(),
+          ),
+        ],
+        child: child,
+      ),
       routes: [
         GoRoute(
           path: '/pokemons',

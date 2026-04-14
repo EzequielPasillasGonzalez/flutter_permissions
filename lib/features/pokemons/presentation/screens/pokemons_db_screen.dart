@@ -1,50 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/config/config.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
+import 'package:reforzamiento/features/widgets/widgets.dart';
 import 'package:workmanager/workmanager.dart';
 
-class PokemonsDbScreen extends StatelessWidget {
+class PokemonsDbScreen extends StatefulWidget {
   const PokemonsDbScreen({super.key});
 
   @override
+  State<PokemonsDbScreen> createState() => _PokemonsDbScreenState();
+}
+
+class _PokemonsDbScreenState extends State<PokemonsDbScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<PokemonsDbCubit>().loadNextPage();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Background Process'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Workmanager().registerOneOffTask(
-                fetchBackgroundTaskKey,
-                fetchBackgroundTaskKey,
-                initialDelay: const Duration(seconds: 3),
-                inputData: {'data': 'fetching background pokemon'},
-              );
-            },
-            icon: const Icon(Icons.add_alarm_sharp),
-          ),
-        ],
-        leading: IconButton(
-          onPressed: () {
-            if (context.canPop()) context.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_rounded,
-            size: 30,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      body: CustomScrollView(slivers: [_PokemonGrid(pokemons: [])]),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          //TODO: ACTIVAR O DESACTIVAR TAREA PERIODICA
-        },
-        label: const Text('Activar fetch periódico'),
-        icon: Icon(Icons.av_timer),
-      ),
-    );
+    final pokemonsDbState = context.watch<PokemonsDbCubit>().state;
+    return pokemonsDbState.status == PokemonsStatus.loading
+        ? FullScreenLoader()
+        : Scaffold(
+            appBar: AppBar(
+              title: const Text('Background Process'),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Workmanager().registerOneOffTask(
+                      fetchBackgroundTaskKey,
+                      fetchBackgroundTaskKey,
+                      initialDelay: const Duration(seconds: 3),
+                      inputData: {'data': 'fetching background pokemon'},
+                    );
+                  },
+                  icon: const Icon(Icons.add_alarm_sharp),
+                ),
+              ],
+              leading: IconButton(
+                onPressed: () {
+                  if (context.canPop()) context.pop();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_rounded,
+                  size: 30,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            body: CustomScrollView(
+              slivers: [_PokemonGrid(pokemons: pokemonsDbState.pokemons)],
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () {
+                //TODO: ACTIVAR O DESACTIVAR TAREA PERIODICA
+              },
+              label: const Text('Activar fetch periódico'),
+              icon: Icon(Icons.av_timer),
+            ),
+          );
   }
 }
 
@@ -65,11 +83,12 @@ class _PokemonGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final pokemon = pokemons[index];
 
-        return Column(
-          children: [
-            Image.network(pokemon.imageUrl[0], fit: BoxFit.contain),
-            Text('${pokemon.name}'),
-          ],
+        return GestureDetector(
+          onTap: () => context.push('/pokemons/${pokemon.id}'),
+          child: FadeInImage.assetNetwork(
+            placeholder: 'assets/loaders/gorila-loader.gif',
+            image: pokemon.imageUrl,
+          ),
         );
       },
     );
