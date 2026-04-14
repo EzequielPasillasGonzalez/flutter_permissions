@@ -4,7 +4,7 @@ export 'domain/entities/pokemon.dart';
 export 'domain/entities/simple_pokemon.dart';
 export 'domain/repositories/pokemons_local_db_repository.dart';
 export 'domain/repositories/pokemons_repository.dart';
-export 'infrastructure/datasources/pokemon_isar_local_db_datasource_impl.dart';
+export 'infrastructure/datasources/pokemon_local_db_datasource_impl.dart';
 export 'infrastructure/datasources/pokemons_datasource_impl.dart';
 export 'infrastructure/mappers/pokemon_mapper.dart';
 export 'infrastructure/mappers/simple_pokemon_mapper.dart';

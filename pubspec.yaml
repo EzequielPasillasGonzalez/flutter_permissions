@@ -9,7 +9,6 @@ environment:
 dependencies:
   app_badge_plus: ^1.2.8
   dio: ^5.9.2
-  entity_store_isar: ^6.0.2
   equatable: ^2.0.8
   flutter:
     sdk: flutter
@@ -21,16 +20,16 @@ dependencies:
   google_fonts: ^8.0.2
   google_maps_flutter: ^2.17.0
   google_mobile_ads: ^7.0.0
-  isar: ^3.1.0+1
-  isar_community_flutter_libs: ^3.1.0
   local_auth: ^3.0.1
   local_auth_android: ^2.0.7
+  path: ^1.9.1
   path_provider: ^2.1.5
   permission_handler: ^12.0.1
   quick_actions: ^1.1.0
   sensors_plus: ^7.0.0
   share_plus: ^12.0.1
   shared_preferences: ^2.5.5
+  sqflite: ^2.4.2
   workmanager: ^0.9.0+3
 
 dev_dependencies:
@@ -39,7 +38,6 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  isar_generator: 3.1.0+1
 
 flutter:
   uses-material-design: true

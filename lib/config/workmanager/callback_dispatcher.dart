@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:reforzamiento/config/config.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -11,20 +12,28 @@ const String fetchPeriodicBackgroundTaskKey =
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    switch (task) {
-      case fetchBackgroundTaskKey:
-        await loadNextPokemon();
-        break;
-      case fetchPeriodicBackgroundTaskKey:
-        debugPrint('fetchPeriodicBackgroundTaskKey');
-        break;
+    // Asegurar que los bindings de Flutter estén listos en el Isolate
+    WidgetsFlutterBinding.ensureInitialized();
+    try {
+      await Enviroment.initEnviroment();
+      switch (task) {
+        case fetchBackgroundTaskKey:
+          await loadNextPokemon();
+          break;
 
-      case Workmanager.iOSBackgroundTask:
-        debugPrint('Workmanager.iOSBackgroundTask');
-        break;
+        case fetchPeriodicBackgroundTaskKey:
+          debugPrint('fetchPeriodicBackgroundTaskKey');
+          break;
+
+        case Workmanager.iOSBackgroundTask:
+          debugPrint('Workmanager.iOSBackgroundTask');
+          break;
+      }
+      return true;
+    } catch (e) {
+      debugPrint("Error detallado en Workmanager: $e");
+      return false;
     }
-
-    return true;
 
     // debugPrint("Native: Background task: $task");
     // // Your background work here
@@ -33,7 +42,7 @@ void callbackDispatcher() {
 }
 
 Future loadNextPokemon() async {
-  final localDbRepository = PokemonIsarLocalDbRespositorieImpl();
+  final localDbRepository = PokemonSqfliteLocalDbRespositorieImpl();
   final pokemonRepository = PokemonRepositorieImp(
     datasource: PokemonsDatasourceImpl(),
   );

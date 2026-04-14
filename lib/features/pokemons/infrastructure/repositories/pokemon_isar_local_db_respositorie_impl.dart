@@ -1,13 +1,13 @@
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 
-class PokemonIsarLocalDbRespositorieImpl extends PokemonsLocalDbRepository {
-  PokemonIsarLocalDbRespositorieImpl([PokemonsLocalDbDatasource? datasource])
-    : _datasource = datasource ?? PokemonIsarLocalDbDatasourceImpl();
+class PokemonSqfliteLocalDbRespositorieImpl extends PokemonsLocalDbRepository {
+  PokemonSqfliteLocalDbRespositorieImpl([PokemonsLocalDbDatasource? datasource])
+    : _datasource = datasource ?? PokemonSqfliteLocalDbDatasourceImpl();
 
   final PokemonsLocalDbDatasource _datasource;
 
   @override
-  Future<List<SimplePokemon>> loadPokemons({int limit = 20, offset = 0}) {
+  Future<List<SimplePokemon>> loadPokemons({int limit = 20, int offset = 0}) {
     return _datasource.loadPokemons(limit: limit, offset: offset);
   }
 

@@ -15,9 +15,3 @@ cd android
 ./gradlew signingReport
 ```
 
-## Generador de Codigo (ISAR)
-
-```
-flutter pub run build_runner build
-flutter pub run build_runner watch
-```
