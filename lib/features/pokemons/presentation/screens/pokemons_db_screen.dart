@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reforzamiento/config/config.dart';
+import 'package:reforzamiento/config/workmanager/cubit/workmanager_cubit.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:reforzamiento/features/widgets/widgets.dart';
 import 'package:workmanager/workmanager.dart';
@@ -18,11 +19,13 @@ class _PokemonsDbScreenState extends State<PokemonsDbScreen> {
   void initState() {
     super.initState();
     context.read<PokemonsDbCubit>().loadNextPage();
+    context.read<WorkmanagerCubit>().checkStatus(fetchBackgroundTaskKey);
   }
 
   @override
   Widget build(BuildContext context) {
     final pokemonsDbState = context.watch<PokemonsDbCubit>().state;
+
     return pokemonsDbState.status == PokemonsStatus.loading
         ? FullScreenLoader()
         : Scaffold(
@@ -55,14 +58,44 @@ class _PokemonsDbScreenState extends State<PokemonsDbScreen> {
             body: CustomScrollView(
               slivers: [_PokemonGrid(pokemons: pokemonsDbState.pokemons)],
             ),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                //TODO: ACTIVAR O DESACTIVAR TAREA PERIODICA
-              },
-              label: const Text('Activar fetch periódico'),
-              icon: Icon(Icons.av_timer),
-            ),
+            floatingActionButton: _FAB(),
           );
+  }
+}
+
+class _FAB extends StatelessWidget {
+  const _FAB();
+
+  @override
+  Widget build(BuildContext context) {
+    // Usamos BlocBuilder para escuchar solo los cambios de este Cubit
+    return BlocBuilder<WorkmanagerCubit, WorkmanagerState>(
+      builder: (context, state) {
+        // Extraemos el estado de nuestra tarea específica
+        final isWorking =
+            state.activeProcesses[fetchBackgroundTaskKey] ?? false;
+
+        return FloatingActionButton.extended(
+          onPressed: () {
+            context.read<WorkmanagerCubit>().toggleProcess(
+              fetchBackgroundTaskKey,
+            );
+          },
+          // Color dinámico para feedback visual
+          backgroundColor: isWorking
+              ? Colors.red.shade400
+              : Colors.blue.shade700,
+
+          // Icono que cambia según el estado
+          icon: Icon(isWorking ? Icons.stop_circle_outlined : Icons.av_timer),
+
+          // Label dinámico
+          label: Text(
+            isWorking ? 'Detener proceso' : 'Activar fetch periódico',
+          ),
+        );
+      },
+    );
   }
 }
 

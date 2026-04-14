@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reforzamiento/config/config.dart';
+import 'package:reforzamiento/config/workmanager/cubit/workmanager_cubit.dart';
 import 'package:reforzamiento/features/ads/ads.dart';
 import 'package:reforzamiento/features/app_status/app_status.dart';
 import 'package:reforzamiento/features/permissions/permissions.dart';
@@ -44,6 +45,7 @@ void main() async {
         BlocProvider(create: (_) => AppStatusBloc()),
         BlocProvider(create: (_) => PermissionsBloc()),
         BlocProvider(create: (_) => AdmobCubit()),
+        BlocProvider(create: (_) => WorkmanagerCubit()),
       ],
       child: const MainApp(),
     ),

@@ -19,12 +19,14 @@ class PokemonsDbState extends Equatable {
     List<SimplePokemon>? pokemons,
     PokemonsStatus? status,
     String? errorMessage,
+
     int? offset,
   }) {
     return PokemonsDbState(
       pokemons: pokemons ?? this.pokemons,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
+
       offset: offset ?? this.offset,
     );
   }

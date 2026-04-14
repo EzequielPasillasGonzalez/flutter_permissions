@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:reforzamiento/config/config.dart';
+import 'package:reforzamiento/config/const/enviroment.dart';
 import 'package:reforzamiento/features/pokemons/pokemons.dart';
 import 'package:workmanager/workmanager.dart';
 
