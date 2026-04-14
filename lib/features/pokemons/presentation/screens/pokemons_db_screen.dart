@@ -73,12 +73,12 @@ class _FAB extends StatelessWidget {
       builder: (context, state) {
         // Extraemos el estado de nuestra tarea específica
         final isWorking =
-            state.activeProcesses[fetchBackgroundTaskKey] ?? false;
+            state.activeProcesses[fetchPeriodicBackgroundTaskKey] ?? false;
 
         return FloatingActionButton.extended(
           onPressed: () {
             context.read<WorkmanagerCubit>().toggleProcess(
-              fetchBackgroundTaskKey,
+              fetchPeriodicBackgroundTaskKey,
             );
           },
           // Color dinámico para feedback visual

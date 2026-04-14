@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:reforzamiento/config/plugins/shared_preferences_plugin.dart';
@@ -23,8 +24,12 @@ class WorkmanagerCubit extends Cubit<WorkmanagerState> {
     );
 
     if (isCurrentlyWorking) {
+      debugPrint('deactivate procecess');
+
       deactivePeriodicTaskStatus(processName);
     } else {
+      debugPrint('activate procecess');
+
       activateProcess(processName);
     }
 
@@ -40,6 +45,7 @@ class WorkmanagerCubit extends Cubit<WorkmanagerState> {
       constraints: Constraints(networkType: NetworkType.connected),
       tag: processName,
     );
+    debugPrint('proccess activated');
 
     await SharedPreferencesPlugin.setBool(processName, true);
   }
